@@ -10,6 +10,7 @@ function walkSqlContent() {
   Object.keys(sqlContentList).forEach(key => {
     sqlStatement = sqlStatement.concat(sqlContentList[key].split(';'));
   })
+  sqlStatement.splice(-1, 1);
   return sqlStatement;
 }
 

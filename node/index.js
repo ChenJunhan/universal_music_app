@@ -1,6 +1,7 @@
 const Koa = require('koa');
 const Router = require('koa-router');
 const fs = require('fs');
+const bodyParser = require('koa-bodyparser');
 const loggerAsync = require('./server/middleware/logger-async');
 
 const app = new Koa();
@@ -8,6 +9,7 @@ const router = new Router({ prefix: '/api' });
 const port = 3000;                // 端口
 
 app.use(loggerAsync());           // log中间件
+app.use(bodyParser());
 
 // 首页
 app.use(async (ctx, next) => {
