@@ -3,7 +3,7 @@
 # 用户信息表
 CREATE TABLE   IF NOT EXISTS  `user_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT, # 用户ID
-  `email` varchar(255) DEFAULT NULL,    # 邮箱地址
+  `phone_number` varchar(255) DEFAULT NULL,    # 手机号码
   `password` varchar(255) DEFAULT NULL, # 密码
   `name` varchar(255) DEFAULT NULL,     # 用户名
   `nick` varchar(255) DEFAULT NULL,     # 用户昵称
@@ -15,4 +15,4 @@ CREATE TABLE   IF NOT EXISTS  `user_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 # 插入默认信息
-INSERT INTO `user_info` set name='admin001', email='admin001@example.com', password='123456';
+INSERT INTO `user_info` set name='admin001', phone_number='18124089923', password='123456';
