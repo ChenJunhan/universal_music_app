@@ -10,7 +10,8 @@ router.post('/', async (ctx, next) => {
   let result = {
     success: false,
     message: '',
-    data: null
+    data: null,
+    code: -1
   }
 
   // 注册验证
@@ -42,9 +43,10 @@ router.post('/', async (ctx, next) => {
     create_time: new Date().getTime(),
     level: 1,
   });
-
+  console.log(createResult);
   if (createResult && createResult.insertId * 1 > 0) {
     result.success = true;
+    result.code = 0;
   }else {
     result.message = userCode.ERROR_SYS;
   }

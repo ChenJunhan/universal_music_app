@@ -28,7 +28,27 @@ const user = {
       result = null;
     }
     return result;
-  }
+  },
+
+
+  /** 
+   * 数据库创建用户登录token
+   */
+  async createToken(model) {
+    let result = await db.insertData('token', model);
+    return result;
+  },
+
+
+  /**
+   * 数据库更新token
+   * @param {*} model
+   * @returns
+   */
+  async updateToken(model) {
+    let result = await db.updateData('token', model);
+    return result;
+  },
 }
 
 module.exports = user;

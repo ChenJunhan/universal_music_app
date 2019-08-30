@@ -17,6 +17,8 @@ const userCode = {
   ERROR_FAIL_USER_IS_NOT_EXIST: '该手机号码未注册',
 
   ERROR_SYS: '系统错误',
+
+  ERROR_FAIL_USER_PASSWORD: '手机号或密码不正确',
 }
 
 module.exports = userCode;

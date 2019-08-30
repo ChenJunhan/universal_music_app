@@ -8,32 +8,35 @@ const pool = mysql.createPool({
   database: config.database.DATABASE,
 })
 
-let query = (sql, values) => {
+module.exports = { 
+  query(sql, values) {
 
-  return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      if (err) {
-        reject(err)
-      } else {
-        connection.query(sql, values, (err, rows) => {
+    return new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        if (err) {
+          reject(err)
+        } else {
+          connection.query(sql, values, (err, rows) => {
 
-          if (err) {
-            reject(err)
-          }else {
-            resolve(rows)
-          }
-          connection.release()
-        })
-      }
+            if (err) {
+              reject(err)
+            }else {
+              resolve(rows)
+            }
+            connection.release()
+          })
+        }
+      })
     })
-  })
-}
+  },
 
-let insertData = function(table, values) { 
-  let _sql = "INSERT INTO ?? SET ?"
-  return query(_sql, [table, values]);
-}
-module.exports = {
-  query,
-  insertData,
+  insertData(table, values) { 
+    let _sql = "REPLACE INTO ?? SET ?";
+    return this.query(_sql, [table, values]);
+  },
+
+  updateData(table, values) {
+    let _sql = "UPDATE ?? SET ? WHERE uid = ?";
+    return this.query(_sql, [table, values, id]);
+  }
 }

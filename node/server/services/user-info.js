@@ -28,6 +28,39 @@ const user = {
     return resultData;
   },
 
+
+  /**
+   * 查询token表是否存在
+   * @param {*} uid
+   * @returns
+   */
+  async getExistUserToken(uid) {
+    let resultData = await userModel.getExistUserToken(uid);
+    return resultData;
+  },
+
+  /**
+   * 创建登录token
+   * @param {*} options
+   * @returns
+   */
+  async createToken(options) {
+    let result = await userModel.createToken(options);
+    return result;
+  },
+
+
+  /**
+   * 更新token
+   * @param {*} options
+   * @returns
+   */
+  async updateToken(options) {
+    let result = await userModel.updateToken(options);
+    return result;
+  },
+
+
   /**
    * 验证用户注册数据
    * @param {*} userInfo 用户注册数据
