@@ -1,3 +1,11 @@
+/*
+ * @Author: ChenJunhan 
+ * @Date: 2019-09-02 18:15:15 
+ * @Last Modified by:   ChenJunhan 
+ * @Last Modified time: 2019-09-02 18:15:15 
+ * 登录接口
+ */
+
 const Router = require('koa-router');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -6,6 +14,7 @@ const router = new Router();
 const userInfoService = require('../services/user-info');
 const userCode = require('../codes/user');
 const tokenUtils = require('../utils/token');
+const requestValidate = require('../utils/request-validate');
 
 router.post('/', async (ctx, next) => {
   let formData = ctx.request.body;
@@ -14,10 +23,16 @@ router.post('/', async (ctx, next) => {
     message: '',
     data: null,
     code: -1,
-  }
-
+  };
+  let rules = {
+    'phone_number': 'required',
+    'password': 'required'
+  };
+  
+  // 验证请求参数
+  requestValidate(formData, rules, ctx); 
   // 获取手机号码用户信息
-  let userInfo = await userInfoService.getExistUser(formData.phoneNumber);
+  let userInfo = await userInfoService.getExistUser(formData['phone_number']);
 
   // 判断用户是否存在
   if (!userInfo) {
@@ -34,14 +49,19 @@ router.post('/', async (ctx, next) => {
     return;
   }
 
-  const expired = 60;   // token过期时间
-  const token = tokenUtils.createToken({ uid: userInfo.id }, expired);  // token
+  const expired = 60;               // token过期时间
+  const refreshExpired = 70;        // refresh token过期时间
+  const token = tokenUtils.createToken({ uid: userInfo.id }, expired);  
+  const refreshToken = tokenUtils.createToken({ uid: userInfo.id }, refreshExpired);
+
   let tokenResult = await userInfoService.createToken({
     uid: userInfo.id,
     token,
-    expired
+    expired,
+    refreshToken,
+    refreshExpired
   });
-  console.log(tokenResult)
+  
   if (tokenResult) {
     result.success = true;
     result.code = 0;

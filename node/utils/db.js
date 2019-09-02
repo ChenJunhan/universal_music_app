@@ -38,5 +38,10 @@ module.exports = {
   updateData(table, values) {
     let _sql = "UPDATE ?? SET ? WHERE uid = ?";
     return this.query(_sql, [table, values, id]);
+  },
+
+  replaceData(table, values) {
+    let _sql = 'REPLACE INTO ?? SET ?';
+    return this.query(_sql, [table, values]);
   }
 }

@@ -49,18 +49,6 @@ const user = {
     return result;
   },
 
-
-  /**
-   * 更新token
-   * @param {*} options
-   * @returns
-   */
-  async updateToken(options) {
-    let result = await userModel.updateToken(options);
-    return result;
-  },
-
-
   /**
    * 验证用户注册数据
    * @param {*} userInfo 用户注册数据
@@ -72,7 +60,7 @@ const user = {
       message: '',
     }
 
-    if (!validator.isMobile(userInfo.phoneNumber)) {
+    if (!validator.isMobile(userInfo['phone_number'])) {
       result.message = userCode.ERROR_PHONE;
       return result;
     }
@@ -80,7 +68,7 @@ const user = {
       result.message = userCode.ERROR_PASSWORD;
       return result;
     }
-    if (userInfo.password !== userInfo.confirmPassword) {
+    if (userInfo.password !== userInfo['confirm_password']) {
       result.message = userCode.ERROR_PASSWORD_CONFORM;
       return result;
     }

@@ -1,11 +1,25 @@
+/*
+ * @Author: ChenJunhan 
+ * @Date: 2019-09-02 18:15:38 
+ * @Last Modified by: ChenJunhan
+ * @Last Modified time: 2019-09-02 18:32:11
+ * 注册接口
+ */
+
 const Router = require('koa-router');
 const bcrypt = require('bcrypt');
 
 const router = new Router();
 const userInfoService = require('../services/user-info');
 const userCode = require('../codes/user');
+const requestValidate = require('../utils/request-validate');
 
 router.post('/', async (ctx, next) => {
+  let rules = {
+    'phone_number': 'required',
+    'password': 'required',
+    'confirm_password': 'required'
+  }
   let formData = ctx.request.body;
   let result = {
     success: false,
@@ -13,8 +27,9 @@ router.post('/', async (ctx, next) => {
     data: null,
     code: -1
   }
-
+  
   // 注册验证
+  requestValidate(formData, rules, ctx);
   let validateResult = userInfoService.validatorSignUp(formData);
   if (!validateResult.success) {
     result = Object.assign(result, validateResult);
@@ -23,7 +38,7 @@ router.post('/', async (ctx, next) => {
   }
 
   // 查询手机号码用户信息
-  let userInfo = await userInfoService.getExistUser(formData.phoneNumber);
+  let userInfo = await userInfoService.getExistUser(formData['phone_number']);
 
   // 判断手机号码是否已经注册
   if (userInfo) {
@@ -38,12 +53,12 @@ router.post('/', async (ctx, next) => {
 
   // 创建用户
   let createResult = await userInfoService.create({
-    phone_number: formData.phoneNumber,
+    phone_number: formData['phone_number'],
     password,
     create_time: new Date().getTime(),
     level: 1,
   });
-  console.log(createResult);
+ 
   if (createResult && createResult.insertId * 1 > 0) {
     result.success = true;
     result.code = 0;

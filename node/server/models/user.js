@@ -32,23 +32,27 @@ const user = {
 
 
   /** 
-   * 数据库创建用户登录token
+   * 数据库创建用户登录token及refreshToken
    */
   async createToken(model) {
-    let result = await db.insertData('token', model);
-    return result;
+
+    let tokenModel = {
+      uid: model.uid,
+      token: model.token,
+      expired: model.expired
+    };
+    let refreshTokenModel = {
+      uid: model.uid,
+      token: model.refreshToken,
+      expired: model.refreshExpired
+    }
+
+    let tokenResult = await db.replaceData('token', tokenModel);
+    let refreshTokenResult = await db.replaceData('refresh_token', refreshTokenModel);
+
+    return tokenResult && refreshTokenResult;
   },
 
-
-  /**
-   * 数据库更新token
-   * @param {*} model
-   * @returns
-   */
-  async updateToken(model) {
-    let result = await db.updateData('token', model);
-    return result;
-  },
 }
 
 module.exports = user;
