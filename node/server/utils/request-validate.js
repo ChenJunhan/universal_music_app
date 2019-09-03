@@ -2,7 +2,7 @@
  * 请求参数验证工具
  * @param {Object} data      验证数据
  * @param {Object} ctx       上下文
- * @param {String} rules     规则 
+ * @param {Object} rules     规则 
  *   required： 必填字段
  *   number：   必须为数字
  *   array：    必须为数
