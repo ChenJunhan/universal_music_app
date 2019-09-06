@@ -35,16 +35,16 @@ const user = {
    * 数据库创建用户登录token及refreshToken
    */
   async createToken(model) {
-
+    let created = Math.floor(Date.now() / 1000);
     let tokenModel = {
       uid: model.uid,
       token: model.token,
-      expired: model.expired
+      expired: created + model.expired
     };
     let refreshTokenModel = {
       uid: model.uid,
       token: model.refreshToken,
-      expired: model.refreshExpired
+      expired: created + model.refreshExpired
     }
 
     let tokenResult = await db.replaceData('token', tokenModel);

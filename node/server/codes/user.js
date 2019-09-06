@@ -19,6 +19,8 @@ const userCode = {
   ERROR_SYS: '系统错误',
 
   ERROR_FAIL_USER_PASSWORD: '手机号或密码不正确',
+
+  101: 'token过期或无效',
 }
 
 module.exports = userCode;
