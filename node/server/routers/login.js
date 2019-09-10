@@ -2,7 +2,7 @@
  * @Author: ChenJunhan 
  * @Date: 2019-09-02 18:15:15 
  * @Last Modified by: ChenJunhan
- * @Last Modified time: 2019-09-03 14:51:58
+ * @Last Modified time: 2019-09-10 15:48:08
  * 登录接口
  */
 
@@ -56,6 +56,7 @@ router.post('/', async (ctx, next) => {
 
   let tokenResult = await userInfoService.createToken({
     uid: userInfo.id,
+    phoneNumber: userInfo.phone_number,
     token,
     expired,
     refreshToken,

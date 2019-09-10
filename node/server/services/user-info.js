@@ -76,6 +76,56 @@ const user = {
     result.success = true;
 
     return result;
+  },
+
+
+  /**
+   * 获取用户信息
+   * @param {*} id
+   * @returns
+   */
+  async getUserInfo(id) {
+    let result = await userModel.getUserInfo(id);
+    return result;
+  },
+
+
+  /**
+   * 验证用户修改密码数据
+   * @param {*} data
+   * @returns
+   */
+  validatorModifyPassword(data) {
+    let result = {
+      success: false,
+      message: '',
+    }
+
+    if (data['old_password'] === data['new_password']) {
+      result.message = userCode.ERROR_FAIL_NO_CHANGE;
+      return result;
+    }
+
+    if (!validator.isPassword(data['new_password'])) {
+      result.message = userCode.ERROR_FAIL_USER_PASSWORD;
+      return result;
+    }
+
+    result.success = true;
+    
+    return result;
+  },
+
+
+  /**
+   * 修改密码
+   * @param {*} id
+   * @param {*} password
+   * @returns
+   */
+  async updatePassword (id, password) {
+    let result = await userModel.updatePassword(id, password);
+    return result;
   }
 }
 

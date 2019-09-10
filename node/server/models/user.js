@@ -14,7 +14,7 @@ const user = {
 
 
   /**
-   * 查找一个存在用户的数据
+   * 根据手机号码查找一个存在用户的数据
    * @param {String} phoneNumber 手机号码
    * @returns {Object}      查询结果
    */
@@ -38,11 +38,13 @@ const user = {
     let created = Math.floor(Date.now() / 1000);
     let tokenModel = {
       uid: model.uid,
+      'phone_number': model.phoneNumber,
       token: model.token,
       expired: created + model.expired
     };
     let refreshTokenModel = {
       uid: model.uid,
+      'phone_number': model.phoneNumber,
       token: model.refreshToken,
       expired: created + model.refreshExpired
     }
@@ -53,6 +55,40 @@ const user = {
     return tokenResult && refreshTokenResult;
   },
 
+
+  /**
+   * 获取用户信息
+   * @param {*} id 用户id
+   * @returns
+   */
+  async getUserInfo(id) {
+    let _sql = 'SELECT * FROM user_info where id = ?';
+    let result = await db.query(_sql, [id]);
+
+    if (Array.isArray(result) && result.length > 0) {
+      result = result[0];
+    }else {
+      result = null;
+    }
+
+    return result;
+  },
+
+
+  /**
+   * 数据库修改密码
+   * @param {*} id  用户id
+   * @param {*} password  新密码
+   * @returns
+   */
+  async updatePassword(id, password) {
+    let result = await db.updateData('user_info', { password }, id);
+
+    if (result.serverStatus * 1 !== 2 || result.affectedRows * 1 !== 1) {
+      result = null;
+    }
+    return result;
+  }
 }
 
 module.exports = user;
