@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "scripts": {
+    "start": "supervisor index",
+    "init": "node ./init/init.js"
+  },
   "dependencies": {
     "bcrypt": "^3.0.6",
     "jsonwebtoken": "^8.2.0",
@@ -10,14 +14,11 @@
     "koa-bodyparser": "^3.2.0",
     "koa-router": "^7.4.0",
     "mysql": "^2.17.1",
+    "request": "^2.88.0",
     "supervisor": "latest",
     "validator": "^11.1.0"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "supervisor index",
-    "init": "node ./init/init.js"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC"
