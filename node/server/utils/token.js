@@ -18,7 +18,7 @@ const token = {
     let create = Math.floor(Date.now() / 1000);
     let cert = fs.readFileSync(path.join(__dirname, '../../config/pri.pem')); // 私钥
     let token = jwt.sign(data, cert, {
-      expiresIn: 60,            // 过期时间:秒
+      expiresIn: 14400,            // 过期时间:秒
       // algorithm: 'RS256'
     });
     return token;

@@ -2,7 +2,7 @@
  * @Author: ChenJunhan 
  * @Date: 2019-09-02 18:15:38 
  * @Last Modified by: ChenJunhan
- * @Last Modified time: 2019-09-02 18:32:11
+ * @Last Modified time: 2019-09-17 15:55:44
  * 注册接口
  */
 
@@ -55,7 +55,7 @@ router.post('/', async (ctx, next) => {
   let createResult = await userInfoService.create({
     phone_number: formData['phone_number'],
     password,
-    create_time: new Date().getTime(),
+    create_time: Date.now() / 1000,
     level: 1,
   });
  
