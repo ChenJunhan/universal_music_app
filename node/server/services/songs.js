@@ -14,6 +14,8 @@ const songs = {
    */
   async searchSongs(songName) {
     let result = await songsModel.wyy_search(songName);
+    // songsModel.qq_search(songName);
+    songsModel.qq_getSongLink();
     return result;
   },
 
