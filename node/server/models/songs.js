@@ -116,7 +116,7 @@ const songs = {
       }, (error, res, body) => {
         let data = JSON.parse(body);
         let link = data.req.data.sip[0] + data.req_0.data.midurlinfo[0].purl;
-        console.log('音乐链接为：',link, data.req_0.data.midurlinfo@);
+        console.log('音乐链接为：',link, data.req_0.data.midurlinfo);
       })
     })
   },
